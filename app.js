@@ -27,4 +27,4 @@ app.use("/admin",adminRouter)
 app.use("/collection", collectionRouter)
 
 
-app.listen(4000)
+app.listen(process.env.PORT)
