@@ -1,0 +1,21 @@
+<div class="w-full px-12 py-8 border border-black/20 flex items-center justify-between">
+    <h4 class="font-regular text-sm">©2024</h4>
+    <div class="flex items-center gap-3 w-[30%]">
+        <input class="p-4 py-3 bg-transparent text-black border-2 outline-none border-black/80 w-[100%] rounded-md" type="email" name="" placeholder="Email">
+        <button class="bg-black text-white font-semibold rounded-md px-12 py-3">Join</button>
+    </div>
+</div>
+<script>
+    document.querySelectorAll(".show").forEach(function(show){
+        show.addEventListener("mouseenter",function(){
+            document.querySelector("#coll").classList.remove("hidden")
+        })
+    })
+    document.querySelectorAll(".show").forEach(function(show){
+        show.addEventListener("mouseleave",function(){
+            document.querySelector("#coll").classList.add("hidden")
+        })
+    })
+</script>
+</body>
+</html>

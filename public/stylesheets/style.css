@@ -1,0 +1,12 @@
+.marque-child{
+    animation: marque 40s linear  infinite;
+}
+@keyframes marque {
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-100%);
+    }
+    
+}
