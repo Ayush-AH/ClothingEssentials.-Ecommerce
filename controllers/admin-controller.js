@@ -6,9 +6,9 @@ module.exports.adminController = async function(req,res){
 }
 
 module.exports.createProductController = async function(req,res){
-    let {productName , price , discount, collection, category , availability} = req.body
+    let {productName , price , discount, proCollection, category , availability} = req.body
     let productImage = req.file?.buffer
-    if(!(productName && price && discount && collection&& category && availability)) return res.send("empty field!!")
+    if(!(productName && price && discount && proCollection && category && availability)) return res.send("empty field!!")
     if(!productImage) return res.send("No image found!!")
 
     let product = await productModel.create({
@@ -17,7 +17,7 @@ module.exports.createProductController = async function(req,res){
         productName,
         price,
         discount,
-        collection,
+        proCollection,
         category,
         availability
     })

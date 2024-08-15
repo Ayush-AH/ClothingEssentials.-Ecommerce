@@ -8,7 +8,7 @@ module.exports.collectionController = async function(req,res){
     let query = {};
 
     if(checkCollection){
-        query.collection = category
+        query.proCollection = category
     }
     if(checkCategory){
         query.category = category

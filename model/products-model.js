@@ -23,9 +23,9 @@ const productSchema = mongoose.Schema({
         type:Number,
         required:true
     },
-    collection: {
+    proCollection: {
         type: String,
-        required: true
+        required: true,
     },
     category: {
         type: String,
