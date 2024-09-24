@@ -3,7 +3,14 @@
     <span>
         <a class=" font-semibold text-black/50" href="/">Home</a> <i class="ri-arrow-right-wide-line font-semibold text-black/50"></i><a href=""></a> <a class="capitalize font-semibold text-black/50 text-sm" href="/cart">Your Cart</a>
     </span>
-    <div class="w-full flex gap-6 pt-12">
+    <div class="w-full mt-6 flex items-end justify-between">
+      <div>
+        <h1 class="text-3xl font-bold">Hey, <span class="capitalize text-green-600"><%= user.fullName %> 👋</span></h1>
+      <p class="text-sm text-zinc-500">Welcome to your cart</p>
+      </div>
+      <a href="/user/logout" class="text-sm font-semibold text-white px-4 py-1 bg-red-500 rounded-md hover:bg-red-800 transition duration-300">Logout</a>
+    </div>
+    <div class="w-full flex gap-6 pt-6">
         <div class="w-[70%] ">
             <div class="flex items-center justify-between bg-zinc-100 px-2 py-4">
                 <h2 class="uppercase font-bold">product</h2>
@@ -13,79 +20,122 @@
                     <h2 class="uppercase font-bold">total</h2>
                 </div>
             </div>
-            <div class="w-full h-44 rounded border flex items-center justify-between border-zinc-300 mt-3 p-10">
-                <div class="flex gap-3">
-                    <div class="w-20 h-20 bg-orange-500">
-                        <img class="w-full h-full object-cover" src="https://www.allstag.com/cdn/shop/files/15.1.jpg?v=1714535561" alt="">
+          <% if(user.cart.length > 0){ %>
+            <% user.cart.forEach(item => { %>
+                <div class="w-full h-44 rounded border flex items-center justify-between border-zinc-300 mt-3 p-10">
+                    <div class="flex gap-3">
+                        <div class="w-20 h-20 bg-orange-500">
+                            <img class="w-full h-full object-cover" src="data:<%= item.product.mimetype %>;base64,<%= item.product.productImage.toString('base64') %>" alt="">
+                        </div>
+                        <div>
+                            <h4><%= item.product.productName %></h4>
+                            <h5 class="text-sm text-zinc-500">ESSENTIALS</h5>
+                        </div>
                     </div>
-                    <div>
-                        <h4>Manne Tanne Dil (Sky Blue)</h4>
-                        <h5 class="text-sm text-zinc-500">Allstag</h5>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between gap-10">
-                    <h4>Rs. 1,499.00</h4>
-                    <div class="px-3 border border-zinc-500  py-2 text-xl  flex  justify-center gap-6">
-                        <i class="ri-add-large-fill"></i>
-                        <h2>0</h2>
-                        <i class="ri-subtract-line"></i>
-                    </div>
-                    <h4>Rs. 1,499.00</h4>
-                </div>
-            </div>
-            <div class="w-full h-44 rounded border flex items-center justify-between border-zinc-300 mt-3 p-10">
-                <div class="flex gap-3">
-                    <div class="w-20 h-20 bg-orange-500">
-                        <img class="w-full h-full object-cover" src="https://www.allstag.com/cdn/shop/files/15.1.jpg?v=1714535561" alt="">
-                    </div>
-                    <div>
-                        <h4>Manne Tanne Dil (Sky Blue)</h4>
-                        <h5 class="text-sm text-zinc-500">Allstag</h5>
+                    <div class="flex items-center justify-between gap-10">
+                        <h4>Rs. <%= item.product.price %></h4>
+                        <div class="px-3 border border-zinc-500  py-2 text-xl  flex  justify-center gap-6">
+                           <a href="/cart/add/<%= item.product._id %>"> <i class="ri-add-large-fill"></i></a>
+                            <h2><%= item.quantity %></h2>
+                            <a href="/cart/remove/<%= item.product._id %>"> <i class="ri-subtract-line"></i></a>
+                        </div>
+                        <h4>Rs. <%= item.product.price * item.quantity %></h4>
                     </div>
                 </div>
-                <div class="flex items-center justify-between gap-10">
-                    <h4>Rs. 1,499.00</h4>
-                    <div class="px-3 border border-zinc-500  py-2 text-xl  flex  justify-center gap-6">
-                        <i class="ri-add-large-fill"></i>
-                        <h2>0</h2>
-                        <i class="ri-subtract-line"></i>
-                    </div>
-                    <h4>Rs. 1,499.00</h4>
-                </div>
-            </div>
-            <div class="w-full h-44 rounded border flex items-center justify-between border-zinc-300 mt-3 p-10">
-                <div class="flex gap-3">
-                    <div class="w-20 h-20 bg-orange-500">
-                        <img class="w-full h-full object-cover" src="https://www.allstag.com/cdn/shop/files/15.1.jpg?v=1714535561" alt="">
-                    </div>
-                    <div>
-                        <h4>Manne Tanne Dil (Sky Blue)</h4>
-                        <h5 class="text-sm text-zinc-500">Allstag</h5>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between gap-10">
-                    <h4>Rs. 1,499.00</h4>
-                    <div class="px-3 border border-zinc-500  py-2 text-xl  flex  justify-center gap-6">
-                        <i class="ri-add-large-fill"></i>
-                        <h2>0</h2>
-                        <i class="ri-subtract-line"></i>
-                    </div>
-                    <h4>Rs. 1,499.00</h4>
-                </div>
-            </div>
+               <% }) %>
+          <% }else{ %>
+            <h1 class="text-center text-2xl font-bold mt-6">No items in cart</h1>
+          <% } %>
         </div>
         <div class="w-[30%]  py-3 px-3">
             <h1 class="text-2xl uppercase font-bold mt-1 ">Order Summary</h1>
             <hr class="bg-black mt-2 h-[2px] mb-3">
-            <div class="w-full flex items-center justify-between pt-4  border-t border-b border-zinc-300">
-                <h4 class="font-semibold text-md">Subtotal</h4>
-                <h2 class="font-bold text-lg">Rs. 5,260.000</h2>
+            <% if(user.cart.length > 0){ %>
+              <div class="w-full flex items-center justify-between pt-4  border-t border-b border-zinc-300">
+                <h4 class="font-semibold text-md text-zinc-500">Subtotal</h4>
+                <h2 class="font-bold text-lg">Rs. <%= totalPrice %>.00</h2>
+            </div>
+            <div class="w-full flex items-center justify-between pt-4 mt-2 border-t border-zinc-300">
+                <h4 class="font-semibold text-md text-zinc-500">Extra Charges</h4>
+                <h2 class="font-bold text-sm">Rs. 50.00</h2>
             </div>
             <div class="w-full flex items-center justify-between pt-4 mt-2 border-t border-b border-zinc-300">
                 <h4 class="font-semibold text-lg">TOTAL:</h4>
-                <h2 class="font-bold text-xl">Rs. 5,260.000</h2>
+                <h2 class="font-bold text-xl">Rs. <%= totalPrice + 50 %>.00</h2>
             </div>
+            <div class="mt-6">
+                <div id="rzp-button1" class="block cursor-pointer w-full bg-green-600 text-white text-center py-3 rounded font-bold uppercase hover:bg-green-800 transition duration-300">
+                    Proceed to Checkout
+                </div>
+            </div>
+            <% }else{ %>
+            <h1 class="text-lg font-regular mt-3">Add items for checkout</h1>
+          <% } %>
         </div>
     </div>
 </div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+document.getElementById('rzp-button1').onclick = function(e) {
+  axios.post('/checkout/create/orderId')
+    .then(function (response) {
+      var options = {
+        "key": "rzp_test_cAa3gCF0eP8i4R", // Enter the Key ID generated from the Dashboard
+        "amount": response.data.amount, // Amount in currency subunits. Default currency is INR.
+        "currency": response.data.currency,
+        "name": "ESSENTIALS",
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": response.data.id, 
+        "handler": function(response) {
+          axios.post('/checkout/payment/verify', {
+            razorpayOrderId: response.razorpay_order_id,
+            razorpayPaymentId: response.razorpay_payment_id,
+            signature: response.razorpay_signature
+          })
+          .then(function (response) {
+            alert('Payment verified successfully');
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+        },
+        "prefill": {
+          "name": "Gaurav Kumar",
+          "email": "gaurav.kumar@example.com",
+          "contact": ""
+        },
+        "notes": {
+          "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+          "color": "black"
+        }
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.on('payment.failed', function(response) {
+        alert('Payment Failed');
+        alert('Error Code: ' + response.error.code);
+        alert('Description: ' + response.error.description);
+        alert('Source: ' + response.error.source);
+        alert('Step: ' + response.error.step);
+        alert('Reason: ' + response.error.reason);
+        alert('Order ID: ' + response.error.metadata.order_id);
+        alert('Payment ID: ' + response.error.metadata.payment_id);
+      });
+      rzp1.open();
+      e.preventDefault();
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+};
+</script>
+
+
+
 <%- include("./partials/footer.ejs") %>

@@ -62,7 +62,10 @@
                            <% } %>
                             <img loading="lazy" src="data:<%= product.mimetype %>;base64,<%= product.productImage.toString('base64')  %>" alt="">
                             <h2 class="text-sm font-semibold py-2 pb-1"><%= product.productName %></h2>
-                            <h3 class="flex gap-3 justify-between pt-2 py-4"><span class="font-semibold text-lg line-through">RS. <%= product.price %>.00</span><span class="font-semibold text-lg ">RS. <%= product.discount > 0? product.price*(product.discount/100) : product.price %>.00</span></h3>
+                            <h3 class="flex gap-3 justify-between pt-2 py-4">
+                                <span class="font-semibold text-lg line-through">RS. <%= product.price %>.00</span>
+                                <span class="font-semibold text-lg ">RS. <%= product.discount > 0 ? Math.round(product.price * (1 - product.discount/100)) : product.price %>.00</span>
+                            </h3>
                         </a>
                     <% }) %>
                 <%}else{%>

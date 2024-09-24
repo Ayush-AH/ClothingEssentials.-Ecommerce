@@ -1,6 +1,17 @@
 const mongoose = require("mongoose")
 const Joi = require("joi")
 
+const cartSchema = mongoose.Schema({
+    product:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"product"
+    },
+    quantity:{
+        type:Number,
+        default:1
+    }
+})
+
 const userSchema = mongoose.Schema({
     fullName:{
         type:String,
@@ -14,7 +25,6 @@ const userSchema = mongoose.Schema({
     },
     password:{
         type:String,
-        required:true,
     },
     role:{
         type:String,
@@ -26,46 +36,12 @@ const userSchema = mongoose.Schema({
             ref:"product"
         }
     ],
-    cart:[
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"product"
-        }
-    ],
+    cart:[cartSchema],
 })
 
 
 
-const validateUser = (data)=>{
-    const userValidationSchema = Joi.object({
-        fullName: Joi.string()
-            .trim()
-            .required(),
-    
-        email: Joi.string()
-            .trim()
-            .email({ tlds: { allow: false } })
-            .required(),
-    
-        password: Joi.string()
-            .required(),
-    
-        role: Joi.string()
-            .default('user'),
-    
-        orders: Joi.array()
-            .items(Joi.string()),
-    
-        cart: Joi.array()
-            .items(Joi.string())
-    });
-
-    var {error} = userValidationSchema.validate(data)
-    console.log(error);
-    
-}
 
 const userModel = mongoose.model("user",userSchema)
 
 module.exports.userModel = userModel
-module.exports.validateUser = validateUser

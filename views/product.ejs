@@ -3,20 +3,18 @@
     <div class="w-[38%] h-[60vh] overflow-hidden">
         <img class="w-full h-full object-cover" src="data:<%= product.mimetype %>;base64,<%= product.productImage.toString('base64') %>" alt="">
     </div>
-    <div class="w-[30%]">
+    <div class="w-[30%] h-[60vh] flex flex-col justify-between">
+       <div>
         <h1 class="text-2xl font-semibold mb-6"><%= product.productName %></h1>
-        <h4 class=" text-zinc-500">Availability: <%= product.availability ? 'In Stock' : 'Out Of Stock' %></h4>
+        <h4 class=" text-zinc-500 mt-10">Availability: <%= product.availability ? 'In Stock' : 'Out Of Stock' %></h4>
         <h4 class=" text-zinc-500">Product Type: <%= product.category %></h4>
-        <h2 class="font-semibold text-lg mt-4"><span class="line-through text-zinc-400">Rs. <%= product.price %>.00</span> Rs. <%= product.discount > 0 ? product.price*(product.discount/100) : product.price %>.00</h2>
-        <h4 class="font-semibold mt-6">Quantity:</h4>
-        <div class="px-3 border border-zinc-500 w-fit  py-2 text-md mt-2  flex  justify-center gap-6">
-            <i class="ri-add-large-fill"></i>
-            <h2>0</h2>
-            <i class="ri-subtract-line"></i>
-        </div>
-        <h4 class="mt-8">Subtotal: <span class="font-semibold">Rs. 1,456.00</span></h4>
-        <a href="/cart"  class="w-80 flex items-center justify-center mt-4 inline-block bg-black py-3 text-white font-semibold">Add To Cart</a>
-        <a href="" <%= product.availability ? '' : 'disabled' %> class="w-80 flex items-center justify-center mt-3 inline-block border border-black py-3 text-black font-semibold"><%= product.availability ? 'Buy Now' : 'Sold Out' %></a>
+        <h2 class="font-semibold text-lg mt-4">
+            <span class="line-through text-zinc-400">Rs. <%= product.price %>.00</span>
+            Rs. <%= product.discount > 0 ? (product.price * (1 - product.discount/100)).toFixed(2) : product.price %>.00
+        </h2>
+       </div>
+       
+        <a href="/cart/add/<%= product._id %>"  class="w-80 flex items-center justify-center mt-4 inline-block bg-black py-3 text-white font-semibold">Add To Cart</a>
     </div>
 </div>
 <%- include("./partials/footer.ejs") %>

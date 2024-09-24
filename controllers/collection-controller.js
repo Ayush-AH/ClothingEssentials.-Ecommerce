@@ -1,4 +1,5 @@
 const {productModel} = require("../model/products-model")
+const {userModel} = require("../model/user-model")
 
 module.exports.collectionController = async function(req,res){
     let {checkStock ,minPrice ,maxPrice} = req.query
@@ -31,7 +32,14 @@ module.exports.collectionController = async function(req,res){
     
     // Find products based on the query object
     const products = await productModel.find(query);
-    
+    let userKey = req.session.user
+    let cartCount = null
+    if(userKey){
+        var user = await userModel.findOne({email:userKey.email})
+        if(user){
+            cartCount = user.cart.length
+        }
+    }
 
-    res.render("collection" ,{products ,checkStock ,minPrice ,maxPrice ,category:req.params.category.toString()})
+    res.render("collection" ,{products ,checkStock ,minPrice ,maxPrice ,category:req.params.category.toString(),cartCount})
 }
