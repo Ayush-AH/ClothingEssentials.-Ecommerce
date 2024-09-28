@@ -3,9 +3,7 @@ const {userModel} = require("../model/user-model")
 
 module.exports.addToCartController = async function(req,res){
     let product = await productModel.findById(req.params.id)
-    console.log(req.user);
     let user = await userModel.findById(req.user.id)
-    console.log(user);
     if(user.cart.length > 0){
         let cartItem = user.cart.find(item => item.product.toString() === product._id.toString())
         if(cartItem){
