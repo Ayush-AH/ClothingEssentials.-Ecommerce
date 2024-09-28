@@ -3,11 +3,11 @@ const router = express.Router()
 const {registerController,loginController ,logoutController} = require("../controllers/user-controller")
 
 router.get("/register",(req,res)=>{
-    res.render("register")
+    res.render("register",{isLoggedIn:false})
 })
 
 router.get("/login",(req,res)=>{
-    res.render("login")
+    res.render("login",{isLoggedIn:false})
 })
 
 router.post("/register",registerController)

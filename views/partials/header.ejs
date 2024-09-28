@@ -11,6 +11,20 @@
 </head>
 
 <body>
+    <div id="mobile" class=" fixed top-0 left-0 flex items-center justify-center w-full z-[999] h-screen bg-gray-50">
+        <div class="max-w-md p-8 bg-white rounded-lg shadow-lg text-center">
+            <h1 class="text-3xl font-semibold text-gray-800">Important Notice</h1>
+            <p class="mt-4 text-gray-600 text-lg">
+                We apologize for the inconvenience, but this site is currently optimized for desktop and tablet viewing only.
+            </p>
+            <p class="mt-2 text-blue-500">
+                For the best experience, please visit us on a larger screen.
+            </p>
+        </div>
+    </div>
+    
+   <% isLoggedIn = typeof isLoggedIn !== 'undefined' ? isLoggedIn : true %>
+   <%if(isLoggedIn){ %>
     <div class="w-full">
         <div class="marque py-2  text-[1.02vw] font-bold flex whitespace-nowrap gap-10 overflow-hidden">
             <div class="marque-child flex gap-10 items-center">
@@ -64,9 +78,11 @@
                <a href="/cart" class="flex items-center gap-3">
                     <i class="ri-shopping-cart-2-line"></i>
                     <div class="w-6 h-6 flex items-center justify-center bg-black rounded-full text-white font-semibold text-xs">
+                        <%cartCount = typeof cartCount !== 'undefined'? cartCount : 0 %>
                         <%= cartCount %>
                     </div>
                 </a>
             </div>
         </div>
     </div>
+   <% } %>

@@ -10,3 +10,17 @@
     }
     
 }
+
+
+#mobile{
+    display: none;
+}
+
+@media (max-width:1050px) {
+    body{
+        overflow: hidden;
+    }
+    #mobile{
+        display: flex;
+    }
+}
